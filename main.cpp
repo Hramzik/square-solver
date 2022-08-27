@@ -18,7 +18,18 @@ int main (int argc, char *argv[]) {
 
     #if defined DEBUG
         
-        test_equation(argv[1]);
+        if (argc < 2) {
+
+            printf ("\nPlease enter the test's file name when starting the program\n\n");
+            exit(0);
+
+        }
+
+        else {
+            
+            test_equation(argv[1]);
+
+        }
         
     #else 
 
