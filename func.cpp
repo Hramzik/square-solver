@@ -164,6 +164,14 @@ bool test_equation (char *file_name) {
     int    num_tests    = 0;
     size_t tests_passed = 0;
     FILE* tests_file = fopen        (file_name, "r");
+
+    if (tests_file == nullptr) {
+
+        printf ("\nCan't find the tests file. Maybe you misspelled it's name?\n\n");
+        exit(0);
+
+    }
+
     num_tests        = get_file_len (file_name)     ;
 
     S_COEFFS  tests         [num_tests]    {};
