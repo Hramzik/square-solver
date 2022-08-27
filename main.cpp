@@ -3,7 +3,8 @@
 /*! \file  main.cpp
     \brief This file contains the main function
 
-    The main function is used to start debug and publick builds of the program
+    The main function is used to start debug and public builds of the program
+    For debug build, use the file_name argument in the command line which leads to the file with you tests
 
     \authors VladZ
     \date 26.06.2022
@@ -11,21 +12,19 @@
 */
 
 #include "func.hpp"
+#define DEBUG
 
-//условная компиляция
-#define DEBU
-
-int main (void) {
+int main (int argc, char *argv[]) {
 
     #if defined DEBUG
         
-        test_equation();
+        test_equation(argv[1]);
         
     #else 
 
         NUM_ROOTS num_roots = ZERO_ROOTS ;
-        double  a,  b,  c,  x1,  x2      ;
-                a = b = c = x1 = x2 = NAN;
+        double  a = NAN,  b = NAN,  c = NAN,  x1 = NAN,  x2 = NAN;
+
         S_COEFFS coefficients = {a, b, c};
 
         while (true) {
@@ -43,8 +42,8 @@ int main (void) {
 
     #endif
 
+    return 0;
     
-
-    return 0; }
+}
 
 

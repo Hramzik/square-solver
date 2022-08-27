@@ -10,7 +10,7 @@
     \todo finish documentation using doxygen
 */
 
-
+//arcc arcv
 #include "func.hpp"
 
 NUM_ROOTS square_solver (S_COEFFS coefficients, double* px1, double* px2) {
@@ -28,7 +28,9 @@ NUM_ROOTS square_solver (S_COEFFS coefficients, double* px1, double* px2) {
 
     if (double_equal (c, 0)) { *px1 = 0; return NUM_ROOTS (linear      (construct_l_coeffs (a, b), px2) + 1) ; }
 
-    return square (coefficients, px1, px2); }
+    return square (coefficients, px1, px2);
+    
+}
 
 NUM_ROOTS linear (L_COEFFS coefficients, double* px) {
 
@@ -46,7 +48,9 @@ NUM_ROOTS linear (L_COEFFS coefficients, double* px) {
 
     if (double_equal (b, 0)) { *px = 0; return ONE_ROOT  ; }
 
-    *px = -b / a;                       return ONE_ROOT  ; }
+    *px = -b / a;                       return ONE_ROOT  ;
+    
+}
 
 NUM_ROOTS square (S_COEFFS coefficients, double* px1, double* px2) {
 
@@ -155,12 +159,12 @@ bool double_equal (double first, double second) {
 
 }
 
-bool test_equation (void) {
+bool test_equation (char *file_name) {
 
     int    num_tests    = 0;
     size_t tests_passed = 0;
-    FILE* tests_file = fopen(file_name, "r");
-    num_tests = get_file_len();
+    FILE* tests_file = fopen        (file_name, "r");
+    num_tests        = get_file_len (file_name)     ;
 
     S_COEFFS  tests         [num_tests]    {};
     NUM_ROOTS num_solutions [num_tests]    {};
@@ -182,18 +186,17 @@ bool test_equation (void) {
 
     fclose(tests_file);
 
-
     printf ("\n\nWelcome to the test_equation module!\n");
     printf ("Amount of tests: %d\n\n", num_tests)        ;
 
-    
-    
     for (size_t i = 0; i<num_tests; i++) { tests_passed += one_test (i, tests[i], num_solutions[i], solutions[i]); }
 
     if (tests_passed == num_tests) { printf (  "All %d tests passed!\n\n",               num_tests); }
     else                           { printf ("%d of %d tests passed.\n\n", tests_passed, num_tests); }
 
-    return tests_passed; }
+    return tests_passed;
+    
+}
 
 bool one_test (size_t num_test, S_COEFFS coefficients, NUM_ROOTS num_solutions, double* solutions) {
 
@@ -268,7 +271,7 @@ void success_message (size_t num_test) {
 
 }
 
-size_t get_file_len () {//убрать переоткрытие
+size_t get_file_len (char *file_name) {//убрать переоткрытие
 
     size_t file_len = 1;
 
@@ -290,9 +293,15 @@ size_t get_file_len () {//убрать переоткрытие
 }
 
 L_COEFFS construct_l_coeffs (double a, double b) {
+
     L_COEFFS l = {a, b};
-    return l; }
+    return l;
+    
+}
 
 S_COEFFS construct_s_coeffs (double a, double b, double c) {
+    
     S_COEFFS s = {a, b, c};
-    return s; }
+    return s;
+    
+}

@@ -11,10 +11,6 @@
     \todo finish documentation using doxygen
 */
 
-/*! \def file_name
-    \brief definition of a name of the file that contain all the tests data
-*/
-
 /*! \var typedef struct S_COEFFICIENTS S_COEFFS
     \brief A type definition for a S_COEFFS shortname
 */
@@ -152,18 +148,20 @@
     \return the result of the test in the form of the variable of the bool type
 */
 
-/*! \fn bool test_equation (void);
+/*! \fn bool test_equation (char *file_name);
 
     \brief a function that tests all the equations in the file_name file
+
+    \param[in] file_name name of the file which contains the tests
     \return the amount of tests passed
 */
 
-/*! \fn size_t get_file_len ();
+/*! \fn size_t get_file_len (char *file_name);
 
-    \brief a function that counts lines in the file_name file
-    \return amount of the lines in the file_name file
+    \brief a function that counts lines in the file
+    \param[in] file_name name of the file
+    \return amount of the lines in the file
 */
-
 
 #include <assert.h>
 #include  <stdio.h>
@@ -172,14 +170,10 @@
 const double EPSILON     = 0.001;
 const char   EXIT_SIMBOL = 'e'  ;
 
-#define file_name "tests.txt"
 typedef struct S_COEFFICIENTS S_COEFFS;
 typedef struct L_COEFFICIENTS L_COEFFS;
 
-// doxigen(documentation)
-
-
-///amount of roots of quadratic and linear equations
+/// amount of roots of quadratic and linear equations
 enum NUM_ROOTS {
 
     ZERO_ROOTS = 0, /**< enum value for zero roots */
@@ -190,7 +184,7 @@ enum NUM_ROOTS {
 
 };
 
-///results of comparing two double variables
+/// results of comparing two double variables
 enum DOUBLE_COMPARE_RESULT {
 
     LESS  = 0, /**< enum value LESS */
@@ -200,25 +194,20 @@ enum DOUBLE_COMPARE_RESULT {
 };
     
 
-/** \brief used to store coefficients for the quadratic equation
-
-*/
+/// used to store coefficients for the quadratic equation
 struct S_COEFFICIENTS {
     
-    double a; ///< coefficient before the x^2 term
-    double b; ///< coefficient before the x term
-    double c; ///< constant coefficient
+    double a = NAN; ///< coefficient before the x^2 term
+    double b = NAN; ///< coefficient before the x term
+    double c = NAN; ///< constant coefficient
 
 };
 
-/** \brief used to store coefficients for the linear equation
-
-*/
-
+/// used to store coefficients for the linear equation
 struct L_COEFFICIENTS {
     
-    double a; ///< coefficient before the x term
-    double b; ///< constant coefficient
+    double a = NAN; ///< coefficient before the x term
+    double b = NAN; ///< constant coefficient
 
 };
 
@@ -248,7 +237,7 @@ void                  success_message    (size_t num_test);
 
 bool                  one_test           (size_t num_test, S_COEFFS coefficients, NUM_ROOTS num_solutions, double* solutions);
 
-bool                  test_equation      (void);
+bool                  test_equation      (char *file_name);
 
-size_t                get_file_len       ();
+size_t                get_file_len       (char *file_name);
 
